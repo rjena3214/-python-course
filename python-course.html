@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python: Absolute Beginner to Pro — Ranjan's Course</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D1117;
+  --surface: #161B22;
+  --surface2: #1C2129;
+  --surface3: #21262D;
+  --border: #30363D;
+  --text: #E6EDF3;
+  --muted: #7D8590;
+  --accent: #F0883E;
+  --accent2: #FFA657;
+  --blue: #79C0FF;
+  --green: #3FB950;
+  --purple: #D2A8FF;
+  --red: #FF7B72;
+  --yellow: #E3B341;
+  --teal: #39D353;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.sidebar-logo-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--accent2);
+}
+
+.sidebar-logo-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sidebar-section {
+  padding: 6px 12px 4px 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+.sidebar-item {
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 2px solid transparent;
+}
+
+.sidebar-item:hover { color: var(--text); background: var(--surface2); }
+.sidebar-item.active { color: var(--accent2); border-left-color: var(--accent); background: rgba(240,136,62,0.06); }
+
+.level-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-beginner { background: var(--green); }
+.dot-intermediate { background: var(--blue); }
+.dot-advanced { background: var(--purple); }
+.dot-pro { background: var(--accent); }
+
+/* ── MAIN ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 48px;
+  max-width: 900px;
+}
+
+/* ── TOPIC SECTION ── */
+.topic {
+  display: none;
+}
+.topic.active { display: block; }
+
+/* ── LEVEL BADGE ── */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.badge-beginner { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.25); }
+.badge-intermediate { background: rgba(121,192,255,0.12); color: var(--blue); border: 1px solid rgba(121,192,255,0.25); }
+.badge-advanced { background: rgba(210,168,255,0.12); color: var(--purple); border: 1px solid rgba(210,168,255,0.25); }
+.badge-pro { background: rgba(240,136,62,0.12); color: var(--accent2); border: 1px solid rgba(240,136,62,0.25); }
+
+/* ── HEADINGS ── */
+.topic-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.topic-sub {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text);
+  margin: 32px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h3::before {
+  content: '';
+  width: 3px; height: 20px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent2);
+  margin: 20px 0 8px;
+}
+
+p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 16px 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.code-header {
+  background: var(--surface3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.code-lang {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.code-copy {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Figtree', sans-serif;
+}
+
+.code-copy:hover { border-color: var(--accent); color: var(--accent2); }
+
+pre {
+  padding: 20px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Syntax highlighting */
+.kw { color: var(--red); font-weight: 500; }       /* keywords */
+.fn { color: var(--blue); }                         /* functions */
+.st { color: var(--teal); }                         /* strings */
+.cm { color: #556066; font-style: italic; }         /* comments */
+.nm { color: var(--purple); }                       /* numbers */
+.cl { color: var(--yellow); }                       /* class names */
+.op { color: var(--accent2); }                      /* operators */
+.bi { color: var(--accent2); }                      /* builtins */
+
+/* ── OUTPUT BOX ── */
+.output-box {
+  background: #0A0E14;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--green);
+}
+
+.output-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── CONCEPT BOX ── */
+.concept-box {
+  background: rgba(121,192,255,0.05);
+  border: 1px solid rgba(121,192,255,0.15);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.concept-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.concept-text { font-size: 14px; color: rgba(230,237,243,0.7); line-height: 1.7; }
+
+/* ── TIP BOX ── */
+.tip-box {
+  background: rgba(227,179,65,0.06);
+  border: 1px solid rgba(227,179,65,0.2);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.tip-title { font-size: 13px; font-weight: 700; color: var(--yellow); margin-bottom: 6px; }
+.tip-text { font-size: 14px; color: rgba(230,237,243,0.7); line-height: 1.7; }
+
+/* ── WARN BOX ── */
+.warn-box {
+  background: rgba(255,123,114,0.06);
+  border: 1px solid rgba(255,123,114,0.2);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.warn-title { font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+.warn-text { font-size: 14px; color: rgba(230,237,243,0.7); line-height: 1.7; }
+
+/* ── TABLE ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+th {
+  background: var(--surface3);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: var(--surface2); }
+
+td code, p code {
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent2);
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 260px; right: 0;
+  height: 3px;
+  background: var(--border);
+  z-index: 100;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.3s;
+  width: 0%;
+}
+
+/* ── NAV BUTTONS ── */
+.nav-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Figtree', sans-serif;
+}
+
+.nav-btn:hover { border-color: var(--accent); color: var(--accent2); }
+.nav-btn.primary { background: var(--accent); color: white; border-color: var(--accent); font-family: 'Syne', sans-serif; }
+.nav-btn.primary:hover { background: var(--accent2); }
+
+/* ── QUIZ ── */
+.quiz-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.quiz-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+.quiz-q { font-size: 15px; color: var(--text); margin-bottom: 12px; }
+
+.quiz-option {
+  padding: 10px 16px;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+  transition: all 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.quiz-option:hover { border-color: var(--accent); color: var(--text); }
+.quiz-option.correct { border-color: var(--green); background: rgba(63,185,80,0.08); color: var(--green); }
+.quiz-option.wrong { border-color: var(--red); background: rgba(255,123,114,0.08); color: var(--red); }
+
+.quiz-result { margin-top: 12px; font-size: 14px; font-weight: 600; display: none; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .sidebar { display: none; }
+  .main { padding: 24px 20px; }
+  .progress-bar { left: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-title">🐍 Python Course</div>
+    <div class="sidebar-logo-sub">Beginner → Pro · Ranjan</div>
+  </div>
+
+  <div class="sidebar-section">🟢 Beginner</div>
+  <div class="sidebar-item active dot-beginner" onclick="show('intro')"><div class="level-dot dot-beginner"></div>1. What is Python?</div>
+  <div class="sidebar-item" onclick="show('variables')"><div class="level-dot dot-beginner"></div>2. Variables & Data Types</div>
+  <div class="sidebar-item" onclick="show('strings')"><div class="level-dot dot-beginner"></div>3. Strings</div>
+  <div class="sidebar-item" onclick="show('numbers')"><div class="level-dot dot-beginner"></div>4. Numbers & Math</div>
+  <div class="sidebar-item" onclick="show('input')"><div class="level-dot dot-beginner"></div>5. Input & Output</div>
+  <div class="sidebar-item" onclick="show('conditions')"><div class="level-dot dot-beginner"></div>6. If / Else</div>
+  <div class="sidebar-item" onclick="show('loops')"><div class="level-dot dot-beginner"></div>7. Loops</div>
+  <div class="sidebar-item" onclick="show('lists')"><div class="level-dot dot-beginner"></div>8. Lists</div>
+  <div class="sidebar-item" onclick="show('dicts')"><div class="level-dot dot-beginner"></div>9. Dictionaries</div>
+  <div class="sidebar-item" onclick="show('functions')"><div class="level-dot dot-beginner"></div>10. Functions</div>
+
+  <div class="sidebar-section">🔵 Intermediate</div>
+  <div class="sidebar-item" onclick="show('files')"><div class="level-dot dot-intermediate"></div>11. Files</div>
+  <div class="sidebar-item" onclick="show('errors')"><div class="level-dot dot-intermediate"></div>12. Error Handling</div>
+  <div class="sidebar-item" onclick="show('modules')"><div class="level-dot dot-intermediate"></div>13. Modules & pip</div>
+  <div class="sidebar-item" onclick="show('oop')"><div class="level-dot dot-intermediate"></div>14. OOP & Classes</div>
+  <div class="sidebar-item" onclick="show('comprehensions')"><div class="level-dot dot-intermediate"></div>15. Comprehensions</div>
+  <div class="sidebar-item" onclick="show('lambdas')"><div class="level-dot dot-intermediate"></div>16. Lambda & Map</div>
+  <div class="sidebar-item" onclick="show('apis')"><div class="level-dot dot-intermediate"></div>17. APIs & requests</div>
+
+  <div class="sidebar-section">🟣 Advanced</div>
+  <div class="sidebar-item" onclick="show('decorators')"><div class="level-dot dot-advanced"></div>18. Decorators</div>
+  <div class="sidebar-item" onclick="show('generators')"><div class="level-dot dot-advanced"></div>19. Generators</div>
+  <div class="sidebar-item" onclick="show('async')"><div class="level-dot dot-advanced"></div>20. Async / Await</div>
+  <div class="sidebar-item" onclick="show('datastructs')"><div class="level-dot dot-advanced"></div>21. Data Structures</div>
+
+  <div class="sidebar-section">🔶 Pro Level</div>
+  <div class="sidebar-item" onclick="show('fastapi')"><div class="level-dot dot-pro"></div>22. FastAPI Backend</div>
+  <div class="sidebar-item" onclick="show('claudeapi')"><div class="level-dot dot-pro"></div>23. Claude API in Python</div>
+  <div class="sidebar-item" onclick="show('supabase')"><div class="level-dot dot-pro"></div>24. Supabase in Python</div>
+  <div class="sidebar-item" onclick="show('projects')"><div class="level-dot dot-pro"></div>25. Real Projects</div>
+</div>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="main" id="mainContent">
+
+<!-- 1. INTRO -->
+<div class="topic active" id="topic-intro">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 1</div>
+  <div class="topic-title">What is Python?</div>
+  <div class="topic-sub">Python is the world's most popular programming language. It reads almost like English, runs on any computer, and can do almost anything — websites, AI, data, automation.</div>
+
+  <h3>Why Python?</h3>
+  <table>
+    <tr><th>Feature</th><th>What it means for you</th></tr>
+    <tr><td>Simple syntax</td><td>Reads like English. Easy to learn and remember.</td></tr>
+    <tr><td>Huge community</td><td>Millions of developers. Every problem is already solved.</td></tr>
+    <tr><td>AI & ML king</td><td>TensorFlow, PyTorch, Anthropic SDK — all Python.</td></tr>
+    <tr><td>Web backends</td><td>FastAPI, Flask, Django — build APIs and servers.</td></tr>
+    <tr><td>Automation</td><td>Scrape websites, automate tasks, process files.</td></tr>
+  </table>
+
+  <h3>Your First Python Program</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># This is a comment — Python ignores it</span>
+<span class="fn">print</span>(<span class="st">"Hello, Ranjan! Welcome to Python."</span>)
+<span class="fn">print</span>(<span class="st">"Let's build something amazing!"</span>)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Hello, Ranjan! Welcome to Python.<br>Let's build something amazing!</div>
+
+  <div class="concept-box">
+    <div class="concept-title">💡 print()</div>
+    <div class="concept-text"><code>print()</code> is Python's way of displaying output. Whatever you put inside the brackets gets shown on screen. It's the first function every Python developer ever uses.</div>
+  </div>
+
+  <h3>How to Run Python</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">terminal</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Method 1: Save as hello.py and run in terminal</span>
+python hello.py
+
+<span class="cm"># Method 2: Open Python interactively</span>
+python
+
+<span class="cm"># Method 3: Use VS Code — open file, press F5</span></pre>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-title">🧠 Quick Check</div>
+    <div class="quiz-q">What does <code>print("Hello")</code> do?</div>
+    <div class="quiz-option" onclick="checkQuiz(this, true)">Displays "Hello" on the screen</div>
+    <div class="quiz-option" onclick="checkQuiz(this, false)">Prints a document to a printer</div>
+    <div class="quiz-option" onclick="checkQuiz(this, false)">Saves "Hello" to a file</div>
+    <div class="quiz-result" id="qresult-intro"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" disabled>← Previous</button>
+    <button class="nav-btn primary" onclick="show('variables')">Next: Variables →</button>
+  </div>
+</div>
+
+<!-- 2. VARIABLES -->
+<div class="topic" id="topic-variables">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 2</div>
+  <div class="topic-title">Variables & Data Types</div>
+  <div class="topic-sub">Variables are containers that store data. Think of them as labelled boxes. Python has 4 main data types you'll use every day.</div>
+
+  <h3>Creating Variables</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># String — text in quotes</span>
+name <span class="op">=</span> <span class="st">"Ranjan"</span>
+
+<span class="cm"># Integer — whole number</span>
+age <span class="op">=</span> <span class="nm">25</span>
+
+<span class="cm"># Float — decimal number</span>
+score <span class="op">=</span> <span class="nm">98.5</span>
+
+<span class="cm"># Boolean — True or False only</span>
+is_developer <span class="op">=</span> <span class="kw">True</span>
+
+<span class="cm"># Print all of them</span>
+<span class="fn">print</span>(name)
+<span class="fn">print</span>(age)
+<span class="fn">print</span>(score)
+<span class="fn">print</span>(is_developer)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Ranjan<br>25<br>98.5<br>True</div>
+
+  <h3>Check the Type of Any Variable</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="fn">print</span>(<span class="fn">type</span>(name))       <span class="cm"># &lt;class 'str'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(age))        <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(score))      <span class="cm"># &lt;class 'float'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(is_developer)) <span class="cm"># &lt;class 'bool'&gt;</span></pre>
+  </div>
+
+  <h3>The 4 Main Data Types</h3>
+  <table>
+    <tr><th>Type</th><th>Example</th><th>Use for</th></tr>
+    <tr><td><code>str</code></td><td><code>"Ranjan"</code></td><td>Names, text, messages</td></tr>
+    <tr><td><code>int</code></td><td><code>25</code></td><td>Age, count, ID numbers</td></tr>
+    <tr><td><code>float</code></td><td><code>98.5</code></td><td>Prices, scores, measurements</td></tr>
+    <tr><td><code>bool</code></td><td><code>True</code> / <code>False</code></td><td>Yes/No, on/off, flags</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠️ Common Mistake</div>
+    <div class="warn-text">Python uses <code>=</code> to assign a value. It uses <code>==</code> to compare two values. These are different! <code>x = 5</code> sets x to 5. <code>x == 5</code> asks "is x equal to 5?"</div>
+  </div>
+
+  <h3>Type Conversion</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Convert between types</span>
+age_text <span class="op">=</span> <span class="st">"25"</span>          <span class="cm"># This is a string</span>
+age_num <span class="op">=</span> <span class="fn">int</span>(age_text)   <span class="cm"># Now it's an integer: 25</span>
+
+price <span class="op">=</span> <span class="nm">99</span>
+price_text <span class="op">=</span> <span class="fn">str</span>(price)   <span class="cm"># Now it's a string: "99"</span>
+
+temperature <span class="op">=</span> <span class="st">"36.6"</span>
+temp_num <span class="op">=</span> <span class="fn">float</span>(temperature)  <span class="cm"># Now it's 36.6 (float)</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('intro')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('strings')">Next: Strings →</button>
+  </div>
+</div>
+
+<!-- 3. STRINGS -->
+<div class="topic" id="topic-strings">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 3</div>
+  <div class="topic-title">Strings</div>
+  <div class="topic-sub">Strings are text. They're the most common data type in real projects — names, messages, API responses, file content. Master strings and you're 40% of the way there.</div>
+
+  <h3>Creating & Combining Strings</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>name <span class="op">=</span> <span class="st">"Ranjan"</span>
+city <span class="op">=</span> <span class="st">"Balasore"</span>
+
+<span class="cm"># Method 1: + operator (old way)</span>
+message <span class="op">=</span> <span class="st">"Hello, "</span> <span class="op">+</span> name <span class="op">+</span> <span class="st">"!"</span>
+<span class="fn">print</span>(message)
+
+<span class="cm"># Method 2: f-string (BEST way — use this always)</span>
+message2 <span class="op">=</span> <span class="st">f"Hello, {name}! You are from {city}."</span>
+<span class="fn">print</span>(message2)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Hello, Ranjan!<br>Hello, Ranjan! You are from Balasore.</div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Always use f-strings</div>
+    <div class="tip-text">f-strings (f"...{variable}...") are the modern Python way to combine strings. They're faster, cleaner, and easier to read. You'll see them in every real Python project.</div>
+  </div>
+
+  <h3>Essential String Methods</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>text <span class="op">=</span> <span class="st">"  Hello, Python World!  "</span>
+
+<span class="fn">print</span>(text.<span class="fn">upper</span>())         <span class="cm"># "  HELLO, PYTHON WORLD!  "</span>
+<span class="fn">print</span>(text.<span class="fn">lower</span>())         <span class="cm"># "  hello, python world!  "</span>
+<span class="fn">print</span>(text.<span class="fn">strip</span>())         <span class="cm"># "Hello, Python World!" (removes spaces)</span>
+<span class="fn">print</span>(text.<span class="fn">replace</span>(<span class="st">"World"</span>, <span class="st">"Ranjan"</span>)) <span class="cm"># "  Hello, Python Ranjan!  "</span>
+<span class="fn">print</span>(text.<span class="fn">split</span>(<span class="st">","</span>))      <span class="cm"># ['  Hello', ' Python World!  ']</span>
+<span class="fn">print</span>(text.<span class="fn">count</span>(<span class="st">"l"</span>))      <span class="cm"># 3</span>
+<span class="fn">print</span>(text.<span class="fn">find</span>(<span class="st">"Python"</span>))  <span class="cm"># 9 (index where it starts)</span>
+<span class="fn">print</span>(text.<span class="fn">startswith</span>(<span class="st">"  Hello"</span>))  <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">len</span>(text))            <span class="cm"># 24 (length of string)</span></pre>
+  </div>
+
+  <h3>String Slicing — Cutting Parts of a String</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>name <span class="op">=</span> <span class="st">"Ranjan Kumar Jena"</span>
+<span class="cm">#       0123456789...</span>
+
+<span class="fn">print</span>(name[<span class="nm">0</span>])        <span class="cm"># "R"  (first character)</span>
+<span class="fn">print</span>(name[<span class="nm">-1</span>])       <span class="cm"># "a"  (last character)</span>
+<span class="fn">print</span>(name[<span class="nm">0</span>:<span class="nm">6</span>])      <span class="cm"># "Ranjan" (index 0 to 5)</span>
+<span class="fn">print</span>(name[<span class="nm">7</span>:<span class="nm">12</span>])     <span class="cm"># "Kumar"</span>
+<span class="fn">print</span>(name[<span class="nm">13</span>:])      <span class="cm"># "Jena"</span>
+<span class="fn">print</span>(name[::<span class="nm">-1</span>])     <span class="cm"># "aneJ ramuK najnaR" (reversed!)</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('variables')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('numbers')">Next: Numbers →</button>
+  </div>
+</div>
+
+<!-- 4. NUMBERS -->
+<div class="topic" id="topic-numbers">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 4</div>
+  <div class="topic-title">Numbers & Math</div>
+  <div class="topic-sub">Python is an excellent calculator. These operators are used in every project — from pricing logic to scoring systems.</div>
+
+  <h3>All Math Operators</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>a <span class="op">=</span> <span class="nm">10</span>
+b <span class="op">=</span> <span class="nm">3</span>
+
+<span class="fn">print</span>(a <span class="op">+</span> b)   <span class="cm"># 13  — Addition</span>
+<span class="fn">print</span>(a <span class="op">-</span> b)   <span class="cm"># 7   — Subtraction</span>
+<span class="fn">print</span>(a <span class="op">*</span> b)   <span class="cm"># 30  — Multiplication</span>
+<span class="fn">print</span>(a <span class="op">/</span> b)   <span class="cm"># 3.333... — Division (always float)</span>
+<span class="fn">print</span>(a <span class="op">//</span> b)  <span class="cm"># 3   — Floor Division (no decimal)</span>
+<span class="fn">print</span>(a <span class="op">%</span> b)   <span class="cm"># 1   — Modulus (remainder)</span>
+<span class="fn">print</span>(a <span class="op">**</span> b)  <span class="cm"># 1000 — Power (10³)</span></pre>
+  </div>
+
+  <h3>The math Module</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> math
+
+<span class="fn">print</span>(math.<span class="fn">sqrt</span>(<span class="nm">16</span>))    <span class="cm"># 4.0 — square root</span>
+<span class="fn">print</span>(math.<span class="fn">ceil</span>(<span class="nm">4.2</span>))   <span class="cm"># 5   — round up</span>
+<span class="fn">print</span>(math.<span class="fn">floor</span>(<span class="nm">4.9</span>))  <span class="cm"># 4   — round down</span>
+<span class="fn">print</span>(math.<span class="fn">pi</span>)          <span class="cm"># 3.14159...</span>
+<span class="fn">print</span>(<span class="fn">round</span>(<span class="nm">3.7</span>))       <span class="cm"># 4   — round to nearest</span>
+<span class="fn">print</span>(<span class="fn">abs</span>(<span class="op">-</span><span class="nm">10</span>))         <span class="cm"># 10  — absolute value</span>
+<span class="fn">print</span>(<span class="fn">max</span>(<span class="nm">3</span>, <span class="nm">7</span>, <span class="nm">1</span>))     <span class="cm"># 7   — maximum</span>
+<span class="fn">print</span>(<span class="fn">min</span>(<span class="nm">3</span>, <span class="nm">7</span>, <span class="nm">1</span>))     <span class="cm"># 1   — minimum</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('strings')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('input')">Next: Input →</button>
+  </div>
+</div>
+
+<!-- 5. INPUT -->
+<div class="topic" id="topic-input">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 5</div>
+  <div class="topic-title">Input & Output</div>
+  <div class="topic-sub">Input lets your program talk to the user. This is how you build interactive programs.</div>
+
+  <h3>Getting Input from the User</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># input() always returns a STRING</span>
+name <span class="op">=</span> <span class="fn">input</span>(<span class="st">"What is your name? "</span>)
+<span class="fn">print</span>(<span class="st">f"Hello, {name}!"</span>)
+
+<span class="cm"># For numbers, you must convert</span>
+age <span class="op">=</span> <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"How old are you? "</span>))
+<span class="fn">print</span>(<span class="st">f"In 10 years you will be {age <span class="op">+</span> <span class="nm">10</span>}."</span>)
+
+<span class="cm"># Real mini-program</span>
+num1 <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Enter first number: "</span>))
+num2 <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Enter second number: "</span>))
+<span class="fn">print</span>(<span class="st">f"Sum = {num1 <span class="op">+</span> num2}"</span>)
+<span class="fn">print</span>(<span class="st">f"Product = {num1 <span class="op">*</span> num2}"</span>)</pre>
+  </div>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠️ Always convert input to a number</div>
+    <div class="warn-text"><code>input()</code> returns a string. If you type "25", Python sees the text "25", not the number 25. Always wrap with <code>int()</code> or <code>float()</code> when you need a number.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('numbers')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('conditions')">Next: If/Else →</button>
+  </div>
+</div>
+
+<!-- 6. CONDITIONS -->
+<div class="topic" id="topic-conditions">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 6</div>
+  <div class="topic-title">If / Else — Making Decisions</div>
+  <div class="topic-sub">Conditions let your program make decisions. "If this, do that. Otherwise, do something else." This is the brain of every program.</div>
+
+  <h3>Basic If / Elif / Else</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>score <span class="op">=</span> <span class="nm">75</span>
+
+<span class="kw">if</span> score <span class="op">>=</span> <span class="nm">90</span>:
+    <span class="fn">print</span>(<span class="st">"Grade: A — Excellent!"</span>)
+<span class="kw">elif</span> score <span class="op">>=</span> <span class="nm">75</span>:
+    <span class="fn">print</span>(<span class="st">"Grade: B — Good work!"</span>)
+<span class="kw">elif</span> score <span class="op">>=</span> <span class="nm">60</span>:
+    <span class="fn">print</span>(<span class="st">"Grade: C — Keep trying!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Grade: F — Need improvement."</span>)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Grade: B — Good work!</div>
+
+  <h3>Comparison Operators</h3>
+  <table>
+    <tr><th>Operator</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>==</code></td><td>Equal to</td><td><code>x == 5</code></td></tr>
+    <tr><td><code>!=</code></td><td>Not equal to</td><td><code>x != 5</code></td></tr>
+    <tr><td><code>></code></td><td>Greater than</td><td><code>x > 5</code></td></tr>
+    <tr><td><code><</code></td><td>Less than</td><td><code>x < 5</code></td></tr>
+    <tr><td><code>>=</code></td><td>Greater than or equal</td><td><code>x >= 5</code></td></tr>
+    <tr><td><code><=</code></td><td>Less than or equal</td><td><code>x <= 5</code></td></tr>
+  </table>
+
+  <h3>and / or / not</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>age <span class="op">=</span> <span class="nm">20</span>
+has_id <span class="op">=</span> <span class="kw">True</span>
+
+<span class="cm"># and — BOTH must be true</span>
+<span class="kw">if</span> age <span class="op">>=</span> <span class="nm">18</span> <span class="kw">and</span> has_id:
+    <span class="fn">print</span>(<span class="st">"Access granted"</span>)
+
+<span class="cm"># or — AT LEAST ONE must be true</span>
+<span class="kw">if</span> age <span class="op"><</span> <span class="nm">18</span> <span class="kw">or</span> <span class="kw">not</span> has_id:
+    <span class="fn">print</span>(<span class="st">"Access denied"</span>)</pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('input')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('loops')">Next: Loops →</button>
+  </div>
+</div>
+
+<!-- 7. LOOPS -->
+<div class="topic" id="topic-loops">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 7</div>
+  <div class="topic-title">Loops</div>
+  <div class="topic-sub">Loops let you repeat code. Instead of writing the same line 100 times, write it once and loop it. Two types: for and while.</div>
+
+  <h3>for Loop — Loop a fixed number of times</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Loop through a range of numbers</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">5</span>):
+    <span class="fn">print</span>(<span class="st">f"Count: {i}"</span>)
+
+<span class="cm"># Output: 0, 1, 2, 3, 4 (starts at 0!)</span>
+
+<span class="cm"># Loop through a list</span>
+fruits <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"mango"</span>]
+<span class="kw">for</span> fruit <span class="kw">in</span> fruits:
+    <span class="fn">print</span>(<span class="st">f"I love {fruit}"</span>)
+
+<span class="cm"># range(start, stop, step)</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, <span class="nm">11</span>, <span class="nm">2</span>):  <span class="cm"># 1,3,5,7,9</span>
+    <span class="fn">print</span>(i)</pre>
+  </div>
+
+  <h3>while Loop — Loop until condition is false</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>count <span class="op">=</span> <span class="nm">0</span>
+<span class="kw">while</span> count <span class="op"><</span> <span class="nm">5</span>:
+    <span class="fn">print</span>(<span class="st">f"Count is {count}"</span>)
+    count <span class="op">+=</span> <span class="nm">1</span>   <span class="cm"># count = count + 1</span>
+
+<span class="cm"># break — stop the loop early</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">10</span>):
+    <span class="kw">if</span> i <span class="op">==</span> <span class="nm">5</span>:
+        <span class="kw">break</span>   <span class="cm"># stops at 5</span>
+    <span class="fn">print</span>(i)
+
+<span class="cm"># continue — skip this iteration</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">10</span>):
+    <span class="kw">if</span> i <span class="op">%</span> <span class="nm">2</span> <span class="op">==</span> <span class="nm">0</span>:
+        <span class="kw">continue</span>   <span class="cm"># skip even numbers</span>
+    <span class="fn">print</span>(i)   <span class="cm"># prints: 1,3,5,7,9</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('conditions')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('lists')">Next: Lists →</button>
+  </div>
+</div>
+
+<!-- 8. LISTS -->
+<div class="topic" id="topic-lists">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 8</div>
+  <div class="topic-title">Lists</div>
+  <div class="topic-sub">Lists store multiple values in one variable. Like a shopping list or a list of students. This is Python's most-used data structure.</div>
+
+  <h3>Creating & Accessing Lists</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>students <span class="op">=</span> [<span class="st">"Ranjan"</span>, <span class="st">"Priya"</span>, <span class="st">"Amit"</span>, <span class="st">"Sita"</span>]
+<span class="cm">#             0          1         2        3</span>
+
+<span class="fn">print</span>(students[<span class="nm">0</span>])   <span class="cm"># "Ranjan" — first item</span>
+<span class="fn">print</span>(students[<span class="nm">-1</span>])  <span class="cm"># "Sita"   — last item</span>
+<span class="fn">print</span>(students[<span class="nm">1</span>:<span class="nm">3</span>]) <span class="cm"># ["Priya", "Amit"]</span>
+<span class="fn">print</span>(<span class="fn">len</span>(students))  <span class="cm"># 4</span></pre>
+  </div>
+
+  <h3>Modifying Lists</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>fruits <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>]
+
+fruits.<span class="fn">append</span>(<span class="st">"mango"</span>)      <span class="cm"># Add to end</span>
+fruits.<span class="fn">insert</span>(<span class="nm">1</span>, <span class="st">"grape"</span>)   <span class="cm"># Add at index 1</span>
+fruits.<span class="fn">remove</span>(<span class="st">"banana"</span>)     <span class="cm"># Remove by value</span>
+fruits.<span class="fn">pop</span>()               <span class="cm"># Remove last item</span>
+fruits.<span class="fn">sort</span>()              <span class="cm"># Sort alphabetically</span>
+fruits.<span class="fn">reverse</span>()           <span class="cm"># Reverse the list</span>
+<span class="fn">print</span>(fruits)
+
+<span class="cm"># Check if item exists</span>
+<span class="kw">if</span> <span class="st">"apple"</span> <span class="kw">in</span> fruits:
+    <span class="fn">print</span>(<span class="st">"Apple is in the list!"</span>)</pre>
+  </div>
+
+  <h3>Loop Through a List</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>scores <span class="op">=</span> [<span class="nm">85</span>, <span class="nm">92</span>, <span class="nm">78</span>, <span class="nm">95</span>, <span class="nm">60</span>]
+
+<span class="cm"># Loop with index</span>
+<span class="kw">for</span> i, score <span class="kw">in</span> <span class="fn">enumerate</span>(scores):
+    <span class="fn">print</span>(<span class="st">f"Student {i+1}: {score}"</span>)
+
+<span class="cm"># Useful list functions</span>
+<span class="fn">print</span>(<span class="fn">sum</span>(scores))    <span class="cm"># 410</span>
+<span class="fn">print</span>(<span class="fn">max</span>(scores))    <span class="cm"># 95</span>
+<span class="fn">print</span>(<span class="fn">min</span>(scores))    <span class="cm"># 60</span>
+<span class="fn">print</span>(<span class="fn">sum</span>(scores)<span class="op">/</span><span class="fn">len</span>(scores))  <span class="cm"># 82.0 average</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('loops')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('dicts')">Next: Dictionaries →</button>
+  </div>
+</div>
+
+<!-- 9. DICTIONARIES -->
+<div class="topic" id="topic-dicts">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 9</div>
+  <div class="topic-title">Dictionaries</div>
+  <div class="topic-sub">Dictionaries store data as key-value pairs. Like a real dictionary — you look up a word (key) and get its meaning (value). This is how JSON and APIs work.</div>
+
+  <h3>Creating & Accessing Dictionaries</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre>student <span class="op">=</span> {
+    <span class="st">"name"</span>: <span class="st">"Ranjan"</span>,
+    <span class="st">"age"</span>: <span class="nm">25</span>,
+    <span class="st">"city"</span>: <span class="st">"Balasore"</span>,
+    <span class="st">"is_developer"</span>: <span class="kw">True</span>
+}
+
+<span class="fn">print</span>(student[<span class="st">"name"</span>])          <span class="cm"># "Ranjan"</span>
+<span class="fn">print</span>(student.<span class="fn">get</span>(<span class="st">"age"</span>))       <span class="cm"># 25</span>
+<span class="fn">print</span>(student.<span class="fn">get</span>(<span class="st">"phone"</span>, <span class="st">"N/A"</span>))  <span class="cm"># "N/A" (default)</span>
+
+<span class="cm"># Add/update values</span>
+student[<span class="st">"course"</span>] <span class="op">=</span> <span class="st">"Python"</span>
+student[<span class="st">"age"</span>] <span class="op">=</span> <span class="nm">26</span>
+
+<span class="cm"># Delete a key</span>
+<span class="kw">del</span> student[<span class="st">"city"</span>]</pre>
+  </div>
+
+  <h3>Loop Through a Dictionary</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">for</span> key, value <span class="kw">in</span> student.<span class="fn">items</span>():
+    <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)
+
+<span class="cm"># List of dictionaries — very common in real APIs</span>
+employees <span class="op">=</span> [
+    {<span class="st">"name"</span>: <span class="st">"Ranjan"</span>, <span class="st">"role"</span>: <span class="st">"Developer"</span>},
+    {<span class="st">"name"</span>: <span class="st">"Priya"</span>,  <span class="st">"role"</span>: <span class="st">"Designer"</span>},
+    {<span class="st">"name"</span>: <span class="st">"Amit"</span>,   <span class="st">"role"</span>: <span class="st">"Manager"</span>}
+]
+
+<span class="kw">for</span> emp <span class="kw">in</span> employees:
+    <span class="fn">print</span>(<span class="st">f"{emp['name']} is a {emp['role']}"</span>)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Ranjan is a Developer<br>Priya is a Designer<br>Amit is a Manager</div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('lists')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('functions')">Next: Functions →</button>
+  </div>
+</div>
+
+<!-- 10. FUNCTIONS -->
+<div class="topic" id="topic-functions">
+  <div class="level-badge badge-beginner">🟢 Beginner · Lesson 10</div>
+  <div class="topic-title">Functions</div>
+  <div class="topic-sub">Functions are reusable blocks of code. Instead of writing the same logic 10 times, write it once as a function and call it whenever needed. This is the most important concept in programming.</div>
+
+  <h3>Define & Call a Function</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Define the function</span>
+<span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="fn">print</span>(<span class="st">f"Hello, {name}! Welcome to Python."</span>)
+
+<span class="cm"># Call the function</span>
+<span class="fn">greet</span>(<span class="st">"Ranjan"</span>)
+<span class="fn">greet</span>(<span class="st">"Priya"</span>)
+<span class="fn">greet</span>(<span class="st">"Amit"</span>)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>Hello, Ranjan! Welcome to Python.<br>Hello, Priya! Welcome to Python.<br>Hello, Amit! Welcome to Python.</div>
+
+  <h3>Functions with Return Values</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">def</span> <span class="fn">calculate_grade</span>(score):
+    <span class="kw">if</span> score <span class="op">>=</span> <span class="nm">90</span>:
+        <span class="kw">return</span> <span class="st">"A"</span>
+    <span class="kw">elif</span> score <span class="op">>=</span> <span class="nm">75</span>:
+        <span class="kw">return</span> <span class="st">"B"</span>
+    <span class="kw">elif</span> score <span class="op">>=</span> <span class="nm">60</span>:
+        <span class="kw">return</span> <span class="st">"C"</span>
+    <span class="kw">else</span>:
+        <span class="kw">return</span> <span class="st">"F"</span>
+
+<span class="cm"># Use the returned value</span>
+grade <span class="op">=</span> <span class="fn">calculate_grade</span>(<span class="nm">85</span>)
+<span class="fn">print</span>(<span class="st">f"Your grade is: {grade}"</span>)  <span class="cm"># "B"</span>
+
+<span class="cm"># Default parameters</span>
+<span class="kw">def</span> <span class="fn">introduce</span>(name, role<span class="op">=</span><span class="st">"Developer"</span>):
+    <span class="kw">return</span> <span class="st">f"I am {name}, a {role}."</span>
+
+<span class="fn">print</span>(<span class="fn">introduce</span>(<span class="st">"Ranjan"</span>))                 <span class="cm"># uses default</span>
+<span class="fn">print</span>(<span class="fn">introduce</span>(<span class="st">"Priya"</span>, <span class="st">"Designer"</span>))      <span class="cm"># custom role</span></pre>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Golden Rule of Functions</div>
+    <div class="tip-text">A good function does ONE thing well. If your function does 5 things, split it into 5 functions. This is called the Single Responsibility Principle and it's how professional code is written.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('dicts')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('files')">Next: Files →</button>
+  </div>
+</div>
+
+<!-- 11. FILES -->
+<div class="topic" id="topic-files">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 11</div>
+  <div class="topic-title">Working with Files</div>
+  <div class="topic-sub">Reading and writing files is essential — saving reports, reading configs, processing data. You already used this in your DeepLearning.AI assignments.</div>
+
+  <h3>Reading & Writing Files</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Write to a file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"report.txt"</span>, <span class="st">"w"</span>) <span class="kw">as</span> f:
+    f.<span class="fn">write</span>(<span class="st">"OnboardIQ Report\n"</span>)
+    f.<span class="fn">write</span>(<span class="st">"Candidate: Ranjan\n"</span>)
+    f.<span class="fn">write</span>(<span class="st">"Score: 95%\n"</span>)
+
+<span class="cm"># Read from a file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"report.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> f:
+    content <span class="op">=</span> f.<span class="fn">read</span>()
+    <span class="fn">print</span>(content)
+
+<span class="cm"># Append to a file (don't overwrite)</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"report.txt"</span>, <span class="st">"a"</span>) <span class="kw">as</span> f:
+    f.<span class="fn">write</span>(<span class="st">"Status: Passed\n"</span>)</pre>
+  </div>
+
+  <h3>File Modes</h3>
+  <table>
+    <tr><th>Mode</th><th>Meaning</th></tr>
+    <tr><td><code>"r"</code></td><td>Read only (file must exist)</td></tr>
+    <tr><td><code>"w"</code></td><td>Write — creates new file or overwrites existing</td></tr>
+    <tr><td><code>"a"</code></td><td>Append — adds to end of existing file</td></tr>
+    <tr><td><code>"r+"</code></td><td>Read and write</td></tr>
+  </table>
+
+  <h3>JSON Files — The Format of APIs</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> json
+
+data <span class="op">=</span> {
+    <span class="st">"name"</span>: <span class="st">"Ranjan"</span>,
+    <span class="st">"role"</span>: <span class="st">"Developer"</span>,
+    <span class="st">"skills"</span>: [<span class="st">"Python"</span>, <span class="st">"FastAPI"</span>, <span class="st">"Claude API"</span>]
+}
+
+<span class="cm"># Save dict to JSON file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"data.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> f:
+    json.<span class="fn">dump</span>(data, f, indent<span class="op">=</span><span class="nm">2</span>)
+
+<span class="cm"># Load JSON file back to dict</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"data.json"</span>, <span class="st">"r"</span>) <span class="kw">as</span> f:
+    loaded <span class="op">=</span> json.<span class="fn">load</span>(f)
+    <span class="fn">print</span>(loaded[<span class="st">"name"</span>])   <span class="cm"># "Ranjan"</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('functions')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('errors')">Next: Error Handling →</button>
+  </div>
+</div>
+
+<!-- 12. ERRORS -->
+<div class="topic" id="topic-errors">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 12</div>
+  <div class="topic-title">Error Handling</div>
+  <div class="topic-sub">Real programs break. Error handling lets your program fail gracefully instead of crashing. Professional code always handles errors — this is what separates beginners from real developers.</div>
+
+  <h3>try / except / finally</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Basic try/except</span>
+<span class="kw">try</span>:
+    number <span class="op">=</span> <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Enter a number: "</span>))
+    result <span class="op">=</span> <span class="nm">100</span> <span class="op">/</span> number
+    <span class="fn">print</span>(<span class="st">f"Result: {result}"</span>)
+<span class="kw">except</span> <span class="cl">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"That's not a valid number!"</span>)
+<span class="kw">except</span> <span class="cl">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"Can't divide by zero!"</span>)
+<span class="kw">except</span> <span class="cl">Exception</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Something went wrong: {e}"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"This always runs."</span>)  <span class="cm"># cleanup code here</span></pre>
+  </div>
+
+  <h3>Real-World Error Handling — API Calls</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> requests
+
+<span class="kw">def</span> <span class="fn">call_api</span>(url):
+    <span class="kw">try</span>:
+        response <span class="op">=</span> requests.<span class="fn">get</span>(url, timeout<span class="op">=</span><span class="nm">10</span>)
+        response.<span class="fn">raise_for_status</span>()  <span class="cm"># Raise error if 4xx/5xx</span>
+        <span class="kw">return</span> response.<span class="fn">json</span>()
+    <span class="kw">except</span> requests.exceptions.<span class="cl">Timeout</span>:
+        <span class="fn">print</span>(<span class="st">"Request timed out"</span>)
+    <span class="kw">except</span> requests.exceptions.<span class="cl">HTTPError</span> <span class="kw">as</span> e:
+        <span class="fn">print</span>(<span class="st">f"HTTP Error: {e}"</span>)
+    <span class="kw">except</span> <span class="cl">Exception</span> <span class="kw">as</span> e:
+        <span class="fn">print</span>(<span class="st">f"Error: {e}"</span>)
+    <span class="kw">return</span> <span class="kw">None</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('files')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('modules')">Next: Modules →</button>
+  </div>
+</div>
+
+<!-- 13. MODULES -->
+<div class="topic" id="topic-modules">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 13</div>
+  <div class="topic-title">Modules & pip</div>
+  <div class="topic-sub">Python's superpower is its libraries. pip is the package manager that installs libraries. These tools let you do in 3 lines what would take 300 lines to write yourself.</div>
+
+  <h3>Built-in Modules — No Installation Needed</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> os          <span class="cm"># file system, environment variables</span>
+<span class="kw">import</span> datetime     <span class="cm"># dates and times</span>
+<span class="kw">import</span> random       <span class="cm"># random numbers</span>
+<span class="kw">import</span> json         <span class="cm"># JSON parsing</span>
+<span class="kw">import</span> math         <span class="cm"># math functions</span>
+<span class="kw">import</span> time         <span class="cm"># sleep, timing</span>
+
+<span class="cm"># Examples</span>
+<span class="fn">print</span>(os.<span class="fn">getcwd</span>())              <span class="cm"># current folder</span>
+<span class="fn">print</span>(datetime.datetime.<span class="fn">now</span>()) <span class="cm"># current datetime</span>
+<span class="fn">print</span>(random.<span class="fn">randint</span>(<span class="nm">1</span>, <span class="nm">100</span>))  <span class="cm"># random number</span>
+
+<span class="cm"># Environment variables (for API keys!)</span>
+api_key <span class="op">=</span> os.<span class="fn">getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)
+<span class="fn">print</span>(api_key)</pre>
+  </div>
+
+  <h3>Installing Packages with pip</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">terminal</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Install a package</span>
+pip install requests
+pip install anthropic
+pip install fastapi
+pip install python-dotenv
+
+<span class="cm"># Install from requirements.txt</span>
+pip install -r requirements.txt
+
+<span class="cm"># See all installed packages</span>
+pip list
+
+<span class="cm"># Save your project's packages</span>
+pip freeze > requirements.txt</pre>
+  </div>
+
+  <h3>Essential Packages for Your Projects</h3>
+  <table>
+    <tr><th>Package</th><th>Purpose</th><th>Install</th></tr>
+    <tr><td><code>requests</code></td><td>Make HTTP requests / call APIs</td><td><code>pip install requests</code></td></tr>
+    <tr><td><code>anthropic</code></td><td>Claude API official SDK</td><td><code>pip install anthropic</code></td></tr>
+    <tr><td><code>fastapi</code></td><td>Build fast API backends</td><td><code>pip install fastapi</code></td></tr>
+    <tr><td><code>uvicorn</code></td><td>Run FastAPI server</td><td><code>pip install uvicorn</code></td></tr>
+    <tr><td><code>supabase</code></td><td>Supabase database client</td><td><code>pip install supabase</code></td></tr>
+    <tr><td><code>python-dotenv</code></td><td>Load .env files</td><td><code>pip install python-dotenv</code></td></tr>
+    <tr><td><code>beautifulsoup4</code></td><td>Web scraping</td><td><code>pip install beautifulsoup4</code></td></tr>
+  </table>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('errors')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('oop')">Next: OOP →</button>
+  </div>
+</div>
+
+<!-- 14. OOP -->
+<div class="topic" id="topic-oop">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 14</div>
+  <div class="topic-title">OOP — Classes & Objects</div>
+  <div class="topic-sub">Object-Oriented Programming lets you model real things in code. A class is a blueprint. An object is a real instance of that blueprint. FastAPI and most frameworks use this heavily.</div>
+
+  <h3>Your First Class</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">class</span> <span class="cl">Employee</span>:
+    <span class="cm"># __init__ runs when you create a new object</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name, role, salary):
+        self.name <span class="op">=</span> name
+        self.role <span class="op">=</span> role
+        self.salary <span class="op">=</span> salary
+
+    <span class="cm"># Method — a function inside a class</span>
+    <span class="kw">def</span> <span class="fn">introduce</span>(self):
+        <span class="kw">return</span> <span class="st">f"I am {self.name}, working as {self.role}."</span>
+
+    <span class="kw">def</span> <span class="fn">get_annual</span>(self):
+        <span class="kw">return</span> self.salary <span class="op">*</span> <span class="nm">12</span>
+
+<span class="cm"># Create objects from the class</span>
+emp1 <span class="op">=</span> <span class="cl">Employee</span>(<span class="st">"Ranjan"</span>, <span class="st">"Python Developer"</span>, <span class="nm">50000</span>)
+emp2 <span class="op">=</span> <span class="cl">Employee</span>(<span class="st">"Priya"</span>, <span class="st">"UI Designer"</span>, <span class="nm">45000</span>)
+
+<span class="fn">print</span>(emp1.<span class="fn">introduce</span>())
+<span class="fn">print</span>(<span class="st">f"Annual: ₹{emp1.<span class="fn">get_annual</span>():,}"</span>)</pre>
+  </div>
+  <div class="output-box"><div class="output-label">Output</div>I am Ranjan, working as Python Developer.<br>Annual: ₹600,000</div>
+
+  <h3>Inheritance — One class inherits from another</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">class</span> <span class="cl">AIEmployee</span>(<span class="cl">Employee</span>):  <span class="cm"># inherits Employee</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name, salary, ai_tools):
+        <span class="fn">super</span>().__init__(name, <span class="st">"AI Developer"</span>, salary)
+        self.ai_tools <span class="op">=</span> ai_tools
+
+    <span class="kw">def</span> <span class="fn">introduce</span>(self):  <span class="cm"># override parent method</span>
+        tools <span class="op">=</span> <span class="st">", "</span>.<span class="fn">join</span>(self.ai_tools)
+        <span class="kw">return</span> <span class="st">f"I am {self.name}, an AI Developer. Tools: {tools}"</span>
+
+ranjan <span class="op">=</span> <span class="cl">AIEmployee</span>(<span class="st">"Ranjan"</span>, <span class="nm">80000</span>, [<span class="st">"Claude"</span>, <span class="st">"FastAPI"</span>, <span class="st">"Supabase"</span>])
+<span class="fn">print</span>(ranjan.<span class="fn">introduce</span>())</pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('modules')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('comprehensions')">Next: Comprehensions →</button>
+  </div>
+</div>
+
+<!-- 15. COMPREHENSIONS -->
+<div class="topic" id="topic-comprehensions">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 15</div>
+  <div class="topic-title">List & Dict Comprehensions</div>
+  <div class="topic-sub">Comprehensions are a Pythonic way to create lists/dicts in one line. They're faster and more elegant than loops. Every senior Python developer uses these daily.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Old way — 4 lines</span>
+squares <span class="op">=</span> []
+<span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">10</span>):
+    squares.<span class="fn">append</span>(x <span class="op">**</span> <span class="nm">2</span>)
+
+<span class="cm"># List comprehension — 1 line!</span>
+squares <span class="op">=</span> [x <span class="op">**</span> <span class="nm">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">10</span>)]
+<span class="fn">print</span>(squares)  <span class="cm"># [0,1,4,9,16,25,36,49,64,81]</span>
+
+<span class="cm"># With condition — only even numbers</span>
+evens <span class="op">=</span> [x <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">20</span>) <span class="kw">if</span> x <span class="op">%</span> <span class="nm">2</span> <span class="op">==</span> <span class="nm">0</span>]
+
+<span class="cm"># Dict comprehension</span>
+names <span class="op">=</span> [<span class="st">"ranjan"</span>, <span class="st">"priya"</span>, <span class="st">"amit"</span>]
+name_lengths <span class="op">=</span> {name: <span class="fn">len</span>(name) <span class="kw">for</span> name <span class="kw">in</span> names}
+<span class="cm"># {'ranjan': 6, 'priya': 5, 'amit': 4}</span>
+
+<span class="cm"># Real example — filter passing students</span>
+scores <span class="op">=</span> {<span class="st">"Ranjan"</span>: <span class="nm">85</span>, <span class="st">"Priya"</span>: <span class="nm">45</span>, <span class="st">"Amit"</span>: <span class="nm">72</span>}
+passed <span class="op">=</span> {name: score <span class="kw">for</span> name, score <span class="kw">in</span> scores.<span class="fn">items</span>() <span class="kw">if</span> score <span class="op">>=</span> <span class="nm">60</span>}
+<span class="fn">print</span>(passed)  <span class="cm"># {'Ranjan': 85, 'Amit': 72}</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('oop')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('lambdas')">Next: Lambda →</button>
+  </div>
+</div>
+
+<!-- 16. LAMBDA -->
+<div class="topic" id="topic-lambdas">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 16</div>
+  <div class="topic-title">Lambda, Map & Filter</div>
+  <div class="topic-sub">Lambda is a mini function in one line. map() and filter() apply functions to lists. These are used heavily in data processing and API response handling.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Lambda — anonymous one-line function</span>
+square <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="nm">2</span>
+<span class="fn">print</span>(<span class="fn">square</span>(<span class="nm">5</span>))  <span class="cm"># 25</span>
+
+add <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b
+<span class="fn">print</span>(<span class="fn">add</span>(<span class="nm">3</span>, <span class="nm">7</span>))  <span class="cm"># 10</span>
+
+<span class="cm"># map() — apply function to every item</span>
+numbers <span class="op">=</span> [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>]
+doubled <span class="op">=</span> <span class="fn">list</span>(<span class="fn">map</span>(<span class="kw">lambda</span> x: x <span class="op">*</span> <span class="nm">2</span>, numbers))
+<span class="fn">print</span>(doubled)  <span class="cm"># [2,4,6,8,10]</span>
+
+<span class="cm"># filter() — keep only items that match</span>
+scores <span class="op">=</span> [<span class="nm">45</span>, <span class="nm">80</span>, <span class="nm">55</span>, <span class="nm">90</span>, <span class="nm">30</span>, <span class="nm">75</span>]
+passing <span class="op">=</span> <span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> x: x <span class="op">>=</span> <span class="nm">60</span>, scores))
+<span class="fn">print</span>(passing)  <span class="cm"># [80, 90, 75]</span>
+
+<span class="cm"># sorted() with key — sort by custom criteria</span>
+students <span class="op">=</span> [(<span class="st">"Ranjan"</span>, <span class="nm">85</span>), (<span class="st">"Priya"</span>, <span class="nm">92</span>), (<span class="st">"Amit"</span>, <span class="nm">78</span>)]
+ranked <span class="op">=</span> <span class="fn">sorted</span>(students, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="nm">1</span>], reverse<span class="op">=</span><span class="kw">True</span>)
+<span class="fn">print</span>(ranked)  <span class="cm"># [('Priya',92), ('Ranjan',85), ('Amit',78)]</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('comprehensions')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('apis')">Next: APIs →</button>
+  </div>
+</div>
+
+<!-- 17. APIs -->
+<div class="topic" id="topic-apis">
+  <div class="level-badge badge-intermediate">🔵 Intermediate · Lesson 17</div>
+  <div class="topic-title">APIs & requests Library</div>
+  <div class="topic-sub">APIs let your Python code talk to the internet. Weather, crypto, news, Claude AI — all accessed through APIs. This is what makes Python powerful in the real world.</div>
+
+  <h3>Making GET & POST Requests</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> requests
+
+<span class="cm"># GET request — fetch data</span>
+response <span class="op">=</span> requests.<span class="fn">get</span>(<span class="st">"https://api.github.com/users/rjena3214"</span>)
+data <span class="op">=</span> response.<span class="fn">json</span>()
+<span class="fn">print</span>(data[<span class="st">"name"</span>])
+<span class="fn">print</span>(data[<span class="st">"public_repos"</span>])
+
+<span class="cm"># POST request — send data</span>
+payload <span class="op">=</span> {
+    <span class="st">"name"</span>: <span class="st">"Ranjan"</span>,
+    <span class="st">"role"</span>: <span class="st">"Developer"</span>
+}
+headers <span class="op">=</span> {<span class="st">"Authorization"</span>: <span class="st">"Bearer YOUR_TOKEN"</span>}
+
+response <span class="op">=</span> requests.<span class="fn">post</span>(
+    <span class="st">"https://api.example.com/data"</span>,
+    json<span class="op">=</span>payload,
+    headers<span class="op">=</span>headers
+)
+<span class="fn">print</span>(response.status_code)  <span class="cm"># 200 = success</span>
+<span class="fn">print</span>(response.<span class="fn">json</span>())</pre>
+  </div>
+
+  <h3>Using .env for API Keys — ALWAYS do this</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># .env file (NEVER commit to GitHub)</span>
+<span class="cm"># ANTHROPIC_API_KEY=sk-ant-your-key-here</span>
+
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">import</span> os
+
+load_dotenv()  <span class="cm"># reads .env file</span>
+api_key <span class="op">=</span> os.<span class="fn">getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>)
+<span class="fn">print</span>(api_key)  <span class="cm"># your key, safely loaded</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('lambdas')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('decorators')">Next: Decorators →</button>
+  </div>
+</div>
+
+<!-- 18. DECORATORS -->
+<div class="topic" id="topic-decorators">
+  <div class="level-badge badge-advanced">🟣 Advanced · Lesson 18</div>
+  <div class="topic-title">Decorators</div>
+  <div class="topic-sub">Decorators modify functions without changing their code. FastAPI uses @app.get() and @app.post() — these are decorators. Understanding them is essential for backend development.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># A decorator is a function that wraps another function</span>
+<span class="kw">def</span> <span class="fn">timer</span>(func):
+    <span class="kw">import</span> time
+    <span class="kw">def</span> <span class="fn">wrapper</span>(<span class="op">*</span>args, <span class="op">**</span>kwargs):
+        start <span class="op">=</span> time.<span class="fn">time</span>()
+        result <span class="op">=</span> <span class="fn">func</span>(<span class="op">*</span>args, <span class="op">**</span>kwargs)
+        end <span class="op">=</span> time.<span class="fn">time</span>()
+        <span class="fn">print</span>(<span class="st">f"{func.__name__} took {end-start:.4f}s"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+<span class="cm"># Apply decorator with @</span>
+<span class="op">@</span>timer
+<span class="kw">def</span> <span class="fn">slow_function</span>():
+    <span class="kw">import</span> time
+    time.<span class="fn">sleep</span>(<span class="nm">1</span>)
+    <span class="fn">print</span>(<span class="st">"Done!"</span>)
+
+<span class="fn">slow_function</span>()
+<span class="cm"># Done!</span>
+<span class="cm"># slow_function took 1.0012s</span>
+
+<span class="cm"># FastAPI uses decorators exactly like this:</span>
+<span class="cm"># @app.get("/users")   ← this is a decorator</span>
+<span class="cm"># def get_users():     ← this is the function it decorates</span>
+<span class="cm">#     return users</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('apis')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('generators')">Next: Generators →</button>
+  </div>
+</div>
+
+<!-- 19. GENERATORS -->
+<div class="topic" id="topic-generators">
+  <div class="level-badge badge-advanced">🟣 Advanced · Lesson 19</div>
+  <div class="topic-title">Generators & yield</div>
+  <div class="topic-sub">Generators produce values one at a time instead of all at once. They save massive amounts of memory when dealing with large datasets. Claude's streaming API uses generators.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Normal function — loads everything in memory</span>
+<span class="kw">def</span> <span class="fn">get_numbers</span>(n):
+    <span class="kw">return</span> [i <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n)]  <span class="cm"># all in memory</span>
+
+<span class="cm"># Generator — produces one at a time</span>
+<span class="kw">def</span> <span class="fn">gen_numbers</span>(n):
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="kw">yield</span> i  <span class="cm"># pause here and return i</span>
+
+<span class="cm"># Use it</span>
+gen <span class="op">=</span> <span class="fn">gen_numbers</span>(<span class="nm">5</span>)
+<span class="fn">print</span>(<span class="fn">next</span>(gen))  <span class="cm"># 0</span>
+<span class="fn">print</span>(<span class="fn">next</span>(gen))  <span class="cm"># 1</span>
+
+<span class="kw">for</span> num <span class="kw">in</span> <span class="fn">gen_numbers</span>(<span class="nm">1000000</span>):
+    <span class="fn">print</span>(num)  <span class="cm"># memory-efficient — never stores all 1M numbers</span>
+    <span class="kw">if</span> num <span class="op">></span> <span class="nm">5</span>: <span class="kw">break</span>
+
+<span class="cm"># Claude streaming uses this pattern</span>
+<span class="kw">def</span> <span class="fn">stream_claude</span>(prompt):
+    <span class="kw">with</span> client.messages.<span class="fn">stream</span>(model<span class="op">=</span><span class="st">"..."</span>, ...) <span class="kw">as</span> stream:
+        <span class="kw">for</span> text <span class="kw">in</span> stream.<span class="fn">text_stream</span>():
+            <span class="kw">yield</span> text  <span class="cm"># stream each chunk</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('decorators')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('async')">Next: Async →</button>
+  </div>
+</div>
+
+<!-- 20. ASYNC -->
+<div class="topic" id="topic-async">
+  <div class="level-badge badge-advanced">🟣 Advanced · Lesson 20</div>
+  <div class="topic-title">Async / Await</div>
+  <div class="topic-sub">Async lets your program do multiple things at once without waiting. FastAPI is async by default. When calling the Claude API, your server can handle other requests while waiting for Claude's response.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> asyncio
+
+<span class="cm"># async function — can pause and let others run</span>
+<span class="kw">async def</span> <span class="fn">fetch_data</span>(name):
+    <span class="fn">print</span>(<span class="st">f"Fetching {name}..."</span>)
+    <span class="kw">await</span> asyncio.<span class="fn">sleep</span>(<span class="nm">2</span>)  <span class="cm"># simulate API wait</span>
+    <span class="kw">return</span> <span class="st">f"{name} data ready"</span>
+
+<span class="cm"># Run multiple async tasks simultaneously</span>
+<span class="kw">async def</span> <span class="fn">main</span>():
+    results <span class="op">=</span> <span class="kw">await</span> asyncio.<span class="fn">gather</span>(
+        <span class="fn">fetch_data</span>(<span class="st">"Users"</span>),
+        <span class="fn">fetch_data</span>(<span class="st">"Reports"</span>),
+        <span class="fn">fetch_data</span>(<span class="st">"Stats"</span>)
+    )
+    <span class="kw">for</span> r <span class="kw">in</span> results:
+        <span class="fn">print</span>(r)
+
+asyncio.<span class="fn">run</span>(<span class="fn">main</span>())
+<span class="cm"># All 3 run simultaneously — takes 2s, not 6s!</span>
+
+<span class="cm"># FastAPI async endpoint</span>
+<span class="op">@</span>app.<span class="fn">get</span>(<span class="st">"/data"</span>)
+<span class="kw">async def</span> <span class="fn">get_data</span>():
+    result <span class="op">=</span> <span class="kw">await</span> <span class="fn">call_claude_api</span>()  <span class="cm"># non-blocking</span>
+    <span class="kw">return</span> {<span class="st">"result"</span>: result}</pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('generators')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('datastructs')">Next: Data Structures →</button>
+  </div>
+</div>
+
+<!-- 21. DATA STRUCTURES -->
+<div class="topic" id="topic-datastructs">
+  <div class="level-badge badge-advanced">🟣 Advanced · Lesson 21</div>
+  <div class="topic-title">Advanced Data Structures</div>
+  <div class="topic-sub">Beyond lists and dicts — tuples, sets, and the collections module give you better tools for specific problems.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Tuple — like a list but IMMUTABLE (can't change)</span>
+coords <span class="op">=</span> (<span class="nm">21.4942</span>, <span class="nm">86.9307</span>)   <span class="cm"># Balasore coordinates</span>
+lat, lng <span class="op">=</span> coords              <span class="cm"># unpacking</span>
+
+<span class="cm"># Set — unique values only, no duplicates</span>
+skills <span class="op">=</span> {<span class="st">"Python"</span>, <span class="st">"Python"</span>, <span class="st">"FastAPI"</span>, <span class="st">"Claude"</span>}
+<span class="fn">print</span>(skills)  <span class="cm"># {'Python', 'FastAPI', 'Claude'}</span>
+
+set_a <span class="op">=</span> {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>}
+set_b <span class="op">=</span> {<span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">6</span>}
+<span class="fn">print</span>(set_a <span class="op">&</span> set_b)  <span class="cm"># {3,4} — intersection</span>
+<span class="fn">print</span>(set_a <span class="op">|</span> set_b)  <span class="cm"># {1,2,3,4,5,6} — union</span>
+
+<span class="cm"># collections.Counter — count occurrences</span>
+<span class="kw">from</span> collections <span class="kw">import</span> Counter, defaultdict
+
+words <span class="op">=</span> [<span class="st">"python"</span>, <span class="st">"ai"</span>, <span class="st">"python"</span>, <span class="st">"code"</span>, <span class="st">"ai"</span>, <span class="st">"python"</span>]
+counts <span class="op">=</span> Counter(words)
+<span class="fn">print</span>(counts)  <span class="cm"># Counter({'python': 3, 'ai': 2, 'code': 1})</span>
+
+<span class="cm"># defaultdict — dict with default values</span>
+scores <span class="op">=</span> defaultdict(<span class="fn">list</span>)
+scores[<span class="st">"Ranjan"</span>].<span class="fn">append</span>(<span class="nm">85</span>)
+scores[<span class="st">"Ranjan"</span>].<span class="fn">append</span>(<span class="nm">90</span>)
+<span class="fn">print</span>(scores)  <span class="cm"># {'Ranjan': [85, 90]}</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('async')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('fastapi')">Next: FastAPI →</button>
+  </div>
+</div>
+
+<!-- 22. FASTAPI -->
+<div class="topic" id="topic-fastapi">
+  <div class="level-badge badge-pro">🔶 Pro Level · Lesson 22</div>
+  <div class="topic-title">FastAPI Backend</div>
+  <div class="topic-sub">FastAPI is the Python framework for building APIs. It's fast, modern, and automatically generates docs. This is what your OnboardIQ backend will use.</div>
+
+  <h3>Complete FastAPI App</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python — main.py</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI, HTTPException
+<span class="kw">from</span> fastapi.middleware.cors <span class="kw">import</span> CORSMiddleware
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">import</span> os
+
+load_dotenv()
+
+app <span class="op">=</span> <span class="cl">FastAPI</span>(title<span class="op">=</span><span class="st">"OnboardIQ API"</span>, version<span class="op">=</span><span class="st">"1.0.0"</span>)
+
+<span class="cm"># Allow frontend to call this backend</span>
+app.<span class="fn">add_middleware</span>(
+    CORSMiddleware,
+    allow_origins<span class="op">=</span>[<span class="st">"*"</span>],
+    allow_methods<span class="op">=</span>[<span class="st">"*"</span>],
+    allow_headers<span class="op">=</span>[<span class="st">"*"</span>]
+)
+
+<span class="cm"># Data model — what the request must contain</span>
+<span class="kw">class</span> <span class="cl">OnboardRequest</span>(BaseModel):
+    company: str
+    candidate: str
+    role: str
+    background: str <span class="op">=</span> <span class="st">""</span>   <span class="cm"># optional, default empty</span>
+
+<span class="cm"># Routes (endpoints)</span>
+<span class="op">@</span>app.<span class="fn">get</span>(<span class="st">"/"</span>)
+<span class="kw">async def</span> <span class="fn">health</span>():
+    <span class="kw">return</span> {<span class="st">"status"</span>: <span class="st">"OnboardIQ API is running!"</span>}
+
+<span class="op">@</span>app.<span class="fn">post</span>(<span class="st">"/api/analyse"</span>)
+<span class="kw">async def</span> <span class="fn">analyse</span>(req: <span class="cl">OnboardRequest</span>):
+    <span class="kw">try</span>:
+        result <span class="op">=</span> <span class="kw">await</span> <span class="fn">run_agent_1</span>(req)
+        <span class="kw">return</span> {<span class="st">"analysis"</span>: result}
+    <span class="kw">except</span> <span class="cl">Exception</span> <span class="kw">as</span> e:
+        <span class="kw">raise</span> <span class="cl">HTTPException</span>(status_code<span class="op">=</span><span class="nm">500</span>, detail<span class="op">=</span><span class="fn">str</span>(e))</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">terminal</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="cm"># Run the server</span>
+uvicorn main:app --reload
+
+<span class="cm"># Visit these URLs:</span>
+<span class="cm"># http://localhost:8000/         → your API</span>
+<span class="cm"># http://localhost:8000/docs     → auto-generated docs!</span>
+<span class="cm"># http://localhost:8000/redoc    → alternative docs</span></pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('datastructs')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('claudeapi')">Next: Claude API →</button>
+  </div>
+</div>
+
+<!-- 23. CLAUDE API -->
+<div class="topic" id="topic-claudeapi">
+  <div class="level-badge badge-pro">🔶 Pro Level · Lesson 23</div>
+  <div class="topic-title">Claude API in Python</div>
+  <div class="topic-sub">This is your weapon. The official Anthropic Python SDK lets you call Claude from any Python program — scripts, FastAPI backends, automation tools, anything.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> anthropic
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">import</span> os
+
+load_dotenv()
+
+client <span class="op">=</span> anthropic.<span class="cl">Anthropic</span>(api_key<span class="op">=</span>os.<span class="fn">getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>))
+
+<span class="cm"># Basic call</span>
+<span class="kw">def</span> <span class="fn">ask_claude</span>(prompt):
+    response <span class="op">=</span> client.messages.<span class="fn">create</span>(
+        model<span class="op">=</span><span class="st">"claude-sonnet-4-20250514"</span>,
+        max_tokens<span class="op">=</span><span class="nm">1000</span>,
+        messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}]
+    )
+    <span class="kw">return</span> response.content[<span class="nm">0</span>].text
+
+<span class="cm"># With system prompt</span>
+<span class="kw">def</span> <span class="fn">hr_agent</span>(company, candidate, role):
+    response <span class="op">=</span> client.messages.<span class="fn">create</span>(
+        model<span class="op">=</span><span class="st">"claude-sonnet-4-20250514"</span>,
+        max_tokens<span class="op">=</span><span class="nm">1500</span>,
+        system<span class="op">=</span><span class="st">"You are an expert HR onboarding specialist."</span>,
+        messages<span class="op">=</span>[{
+            <span class="st">"role"</span>: <span class="st">"user"</span>,
+            <span class="st">"content"</span>: <span class="st">f"Analyse onboarding for {candidate} as {role} at {company}."</span>
+        }]
+    )
+    <span class="kw">return</span> response.content[<span class="nm">0</span>].text
+
+<span class="cm"># Use it</span>
+result <span class="op">=</span> <span class="fn">hr_agent</span>(<span class="st">"TechCorp"</span>, <span class="st">"Ranjan"</span>, <span class="st">"Python Developer"</span>)
+<span class="fn">print</span>(result)</pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('fastapi')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('supabase')">Next: Supabase →</button>
+  </div>
+</div>
+
+<!-- 24. SUPABASE -->
+<div class="topic" id="topic-supabase">
+  <div class="level-badge badge-pro">🔶 Pro Level · Lesson 24</div>
+  <div class="topic-title">Supabase in Python</div>
+  <div class="topic-sub">Supabase is your database. The Python client lets you save, fetch, update, and delete data from your FastAPI backend. This connects OnboardIQ's backend to persistent storage.</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python — database.py</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre"><span class="kw">from</span> supabase <span class="kw">import</span> create_client
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">import</span> os
+
+load_dotenv()
+
+supabase <span class="op">=</span> <span class="fn">create_client</span>(
+    os.<span class="fn">getenv</span>(<span class="st">"SUPABASE_URL"</span>),
+    os.<span class="fn">getenv</span>(<span class="st">"SUPABASE_KEY"</span>)
+)
+
+<span class="cm"># INSERT — save a new report</span>
+<span class="kw">def</span> <span class="fn">save_report</span>(user_id, company, candidate, role, analysis, score):
+    data <span class="op">=</span> supabase.table(<span class="st">"reports"</span>).<span class="fn">insert</span>({
+        <span class="st">"user_id"</span>: user_id,
+        <span class="st">"company"</span>: company,
+        <span class="st">"candidate"</span>: candidate,
+        <span class="st">"role"</span>: role,
+        <span class="st">"analysis"</span>: analysis,
+        <span class="st">"score"</span>: score
+    }).<span class="fn">execute</span>()
+    <span class="kw">return</span> data
+
+<span class="cm"># SELECT — get all reports for a user</span>
+<span class="kw">def</span> <span class="fn">get_reports</span>(user_id):
+    data <span class="op">=</span> supabase.table(<span class="st">"reports"</span>)\
+        .<span class="fn">select</span>(<span class="st">"*"</span>)\
+        .<span class="fn">eq</span>(<span class="st">"user_id"</span>, user_id)\
+        .<span class="fn">order</span>(<span class="st">"created_at"</span>, desc<span class="op">=</span><span class="kw">True</span>)\
+        .<span class="fn">execute</span>()
+    <span class="kw">return</span> data.data
+
+<span class="cm"># UPDATE — update a report</span>
+<span class="kw">def</span> <span class="fn">update_score</span>(report_id, new_score):
+    supabase.table(<span class="st">"reports"</span>)\
+        .<span class="fn">update</span>({<span class="st">"score"</span>: new_score})\
+        .<span class="fn">eq</span>(<span class="st">"id"</span>, report_id)\
+        .<span class="fn">execute</span>()
+
+<span class="cm"># DELETE — delete a report</span>
+<span class="kw">def</span> <span class="fn">delete_report</span>(report_id):
+    supabase.table(<span class="st">"reports"</span>)\
+        .<span class="fn">delete</span>()\
+        .<span class="fn">eq</span>(<span class="st">"id"</span>, report_id)\
+        .<span class="fn">execute</span>()</pre>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('claudeapi')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('projects')">Next: Real Projects →</button>
+  </div>
+</div>
+
+<!-- 25. PROJECTS -->
+<div class="topic" id="topic-projects">
+  <div class="level-badge badge-pro">🔶 Pro Level · Lesson 25</div>
+  <div class="topic-title">Real Projects to Build</div>
+  <div class="topic-sub">You've learned everything. Now build these projects in order — each one uses everything above and is a real portfolio piece.</div>
+
+  <h3>Project 1 — CLI Calculator (Beginner)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre"><span class="kw">def</span> <span class="fn">calculator</span>():
+    <span class="fn">print</span>(<span class="st">"Simple Calculator"</span>)
+    num1 <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"First number: "</span>))
+    op   <span class="op">=</span> <span class="fn">input</span>(<span class="st">"Operator (+, -, *, /): "</span>)
+    num2 <span class="op">=</span> <span class="fn">float</span>(<span class="fn">input</span>(<span class="st">"Second number: "</span>))
+
+    <span class="kw">if</span>   op <span class="op">==</span> <span class="st">"+"</span>: <span class="fn">print</span>(num1 <span class="op">+</span> num2)
+    <span class="kw">elif</span> op <span class="op">==</span> <span class="st">"-"</span>: <span class="fn">print</span>(num1 <span class="op">-</span> num2)
+    <span class="kw">elif</span> op <span class="op">==</span> <span class="st">"*"</span>: <span class="fn">print</span>(num1 <span class="op">*</span> num2)
+    <span class="kw">elif</span> op <span class="op">==</span> <span class="st">"/"</span> <span class="kw">and</span> num2 <span class="op">!=</span> <span class="nm">0</span>: <span class="fn">print</span>(num1 <span class="op">/</span> num2)
+    <span class="kw">else</span>: <span class="fn">print</span>(<span class="st">"Invalid!"</span>)
+
+<span class="fn">calculator</span>()</pre>
+  </div>
+
+  <h3>Project 2 — Web Scraper (Intermediate)</h3>
+  <p>You already built this for careerzone.org.in. That's a real project.</p>
+
+  <h3>Project 3 — OnboardIQ FastAPI Backend (Pro)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python — Complete backend structure</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre"><span class="cm">"""
+backend/
+├── main.py       ← FastAPI app + all routes
+├── agents.py     ← 4 Claude agent functions
+├── database.py   ← Supabase CRUD operations
+├── models.py     ← Pydantic data models
+├── .env          ← API keys (never commit!)
+└── requirements.txt
+"""</span>
+
+<span class="cm"># requirements.txt</span>
+<span class="cm"># fastapi</span>
+<span class="cm"># uvicorn</span>
+<span class="cm"># anthropic</span>
+<span class="cm"># supabase</span>
+<span class="cm"># python-dotenv</span>
+<span class="cm"># pydantic</span></pre>
+  </div>
+
+  <h3>Your Python Skill Level Right Now</h3>
+  <table>
+    <tr><th>Concept</th><th>Status</th></tr>
+    <tr><td>Variables, strings, numbers</td><td>✅ You know this</td></tr>
+    <tr><td>Loops and conditions</td><td>✅ You know this</td></tr>
+    <tr><td>Lists and dictionaries</td><td>✅ You know this (DeepLearning.AI)</td></tr>
+    <tr><td>Functions</td><td>✅ You know this</td></tr>
+    <tr><td>Files and JSON</td><td>✅ Used in your projects</td></tr>
+    <tr><td>APIs and requests</td><td>✅ You've called Claude API</td></tr>
+    <tr><td>OOP and Classes</td><td>🔄 Learn this week</td></tr>
+    <tr><td>FastAPI</td><td>🔄 Build OnboardIQ backend</td></tr>
+    <tr><td>Async/await</td><td>🔄 When you do FastAPI</td></tr>
+    <tr><td>Decorators</td><td>📖 Read the lesson above</td></tr>
+  </table>
+
+  <div class="tip-box">
+    <div class="tip-title">🏆 Your Next Step</div>
+    <div class="tip-text">Open VS Code. Create <code>backend/main.py</code> inside your onboardiq folder. Build one endpoint. Run it. See it work. That single working endpoint is worth more than reading 100 more lessons. Learning Python means writing Python.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="show('supabase')">← Previous</button>
+    <button class="nav-btn primary" onclick="show('intro')">↑ Start Over</button>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+const topics = ['intro','variables','strings','numbers','input','conditions','loops','lists','dicts','functions','files','errors','modules','oop','comprehensions','lambdas','apis','decorators','generators','async','datastructs','fastapi','claudeapi','supabase','projects'];
+
+function show(id) {
+  // Hide all
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+
+  // Show selected
+  const el = document.getElementById('topic-' + id);
+  if (el) el.classList.add('active');
+
+  // Highlight sidebar
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    if (item.getAttribute('onclick') === `show('${id}')`) {
+      item.classList.add('active');
+    }
+  });
+
+  // Update progress
+  const idx = topics.indexOf(id);
+  const pct = ((idx + 1) / topics.length * 100).toFixed(1);
+  document.getElementById('progress').style.width = pct + '%';
+
+  // Scroll to top
+  document.getElementById('mainContent').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.style.color = '#3FB950';
+    btn.style.borderColor = '#3FB950';
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 1500);
+  });
+}
+
+function checkQuiz(el, correct) {
+  const options = el.parentElement.querySelectorAll('.quiz-option');
+  options.forEach(o => o.style.pointerEvents = 'none');
+
+  if (correct) {
+    el.classList.add('correct');
+    showQuizResult('✅ Correct! Great job.', true);
+  } else {
+    el.classList.add('wrong');
+    options.forEach(o => {
+      if (o !== el) { /* find correct */ }
+    });
+    showQuizResult('❌ Not quite. The correct answer is the first option.', false);
+  }
+}
+
+function showQuizResult(msg, correct) {
+  const results = document.querySelectorAll('.quiz-result');
+  results.forEach(r => {
+    if (r.closest('.topic.active')) {
+      r.textContent = msg;
+      r.style.display = 'block';
+      r.style.color = correct ? '#3FB950' : '#FF7B72';
+    }
+  });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  const active = document.querySelector('.sidebar-item.active');
+  const items = document.querySelectorAll('.sidebar-item');
+  const arr = Array.from(items);
+  const idx = arr.indexOf(active);
+
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    if (idx < arr.length - 1) arr[idx + 1].click();
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    if (idx > 0) arr[idx - 1].click();
+  }
+});
+</script>
+</body>
+</html>
